@@ -1,0 +1,535 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  Code - azureyu
+  
+  </title>
+ <meta name="description" content="Reading makes a full man.">
+ <link href="atom.xml" rel="alternate" title="azureyu" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+<div id="header">
+    <h1><a href="index.html">azureyu</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; azureyu</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      
+        <li class="divider"></li>
+        <li><label>TECH</label></li>
+
+          
+            <li><a title="iOS Programming" href="14602167513069.html">iOS Programming</a></li>
+          
+            <li><a title="TimeLine" href="14602167511880.html">TimeLine</a></li>
+          
+            <li><a title="Code" href="14602167511282.html">Code</a></li>
+          
+            <li><a title="Design" href="14602167511150.html">Design</a></li>
+          
+            <li><a title="Learning iOS UI Development" href="14599279229971.html">Learning iOS UI Development</a></li>
+          
+            <li><a title="Images" href="14602167510756.html">Images</a></li>
+          
+            <li><a title="WordCollage" href="14602167512031.html">WordCollage</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>HUM</label></li>
+
+          
+            <li><a title="小王子" href="14602161818056.html">小王子</a></li>
+          
+            <li><a title="Picture This" href="14602161818136.html">Picture This</a></li>
+          
+            <li><a title="The google resume" href="14602161818198.html">The google resume</a></li>
+          
+            <li><a title="演讲的艺术" href="14602161817928.html">演讲的艺术</a></li>
+          
+            <li><a title="设计心理学" href="14602161817875.html">设计心理学</a></li>
+          
+            <li><a title="The element" href="14602161817710.html">The element</a></li>
+          
+
+      
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    
+                      <li class="side-title"><span>TECH</span></li>
+                        
+                          <li><a title="iOS Programming" href="14602167513069.html">iOS Programming</a></li>
+                        
+                          <li><a title="TimeLine" href="14602167511880.html">TimeLine</a></li>
+                        
+                          <li><a title="Code" href="14602167511282.html">Code</a></li>
+                        
+                          <li><a title="Design" href="14602167511150.html">Design</a></li>
+                        
+                          <li><a title="Learning iOS UI Development" href="14599279229971.html">Learning iOS UI Development</a></li>
+                        
+                          <li><a title="Images" href="14602167510756.html">Images</a></li>
+                        
+                          <li><a title="WordCollage" href="14602167512031.html">WordCollage</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>HUM</span></li>
+                        
+                          <li><a title="小王子" href="14602161818056.html">小王子</a></li>
+                        
+                          <li><a title="Picture This" href="14602161818136.html">Picture This</a></li>
+                        
+                          <li><a title="The google resume" href="14602161818198.html">The google resume</a></li>
+                        
+                          <li><a title="演讲的艺术" href="14602161817928.html">演讲的艺术</a></li>
+                        
+                          <li><a title="设计心理学" href="14602161817875.html">设计心理学</a></li>
+                        
+                          <li><a title="The element" href="14602161817710.html">The element</a></li>
+                        
+
+                    
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+
+ <div class="markdown-body">
+<h1>Code</h1>
+
+<h2 id="toc_0">swift 手势识别</h2>
+
+<p><strong>This is adapted from internet</strong></p>
+
+<pre><code>import UIKit
+
+class ViewController: UIViewController, UIActionSheetDelegate {
+
+@IBOutlet var im: UIImageView!
+var lastScaleFactor : CGFloat! = 1  //放大、缩小
+var netRotation : CGFloat = 1;//旋转
+var netTranslation : CGPoint!//平移
+var images : NSArray = [&quot;meinv1.jpg&quot;,&quot;mv2.jpg&quot;,&quot;mv3.jpg&quot;,&quot;mv4.jpg&quot;,&quot;mv5.jpg&quot;,&quot;mv6.jpg&quot;]// 图片数组
+var imageIndex : Int = 0 //数组下标
+
+
+required init(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    netTranslation = CGPoint(x: 0, y: 0)
+}
+
+override func viewDidLoad() {
+    super.viewDidLoad()
+
+
+    var tapGesture = UITapGestureRecognizer(target: self, action: &quot;handleTapGesture:&quot;)
+    //设置手势点击数,双击：点2下
+    tapGesture.numberOfTapsRequired = 2
+    self.view.addGestureRecognizer(tapGesture)
+
+    //手势为捏的姿势:按住option按钮配合鼠标来做这个动作在虚拟器上
+    var pinchGesture = UIPinchGestureRecognizer(target: self, action: &quot;handlePinchGesture:&quot;)
+    self.view.addGestureRecognizer(pinchGesture)
+
+    //旋转手势:按住option按钮配合鼠标来做这个动作在虚拟器上
+    var rotateGesture = UIRotationGestureRecognizer(target: self, action: &quot;handleRotateGesture:&quot;)
+    self.view.addGestureRecognizer(rotateGesture)
+
+    //拖手势
+    var panGesture = UIPanGestureRecognizer(target: self, action: &quot;handlePanGesture:&quot;)
+// self.view.addGestureRecognizer(panGesture)
+
+    //划动手势
+    //右划
+    var swipeGesture = UISwipeGestureRecognizer(target: self, action: &quot;handleSwipeGesture:&quot;)
+    self.view.addGestureRecognizer(swipeGesture)
+    //左划
+    var swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: &quot;handleSwipeGesture:&quot;)
+    swipeLeftGesture.direction = UISwipeGestureRecognizerDirection.Left //不设置是右
+    self.view.addGestureRecognizer(swipeLeftGesture)
+
+    //长按手势
+    var longpressGesutre = UILongPressGestureRecognizer(target: self, action: &quot;handleLongpressGesture:&quot;)
+    //长按时间为1秒
+    longpressGesutre.minimumPressDuration = 1
+    //允许15秒运动
+    longpressGesutre.allowableMovement = 15
+    //所需触摸1次
+    longpressGesutre.numberOfTouchesRequired = 1
+    self.view.addGestureRecognizer(longpressGesutre)
+}
+
+override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+}
+
+//双击屏幕时会调用此方法,放大和缩小图片
+func handleTapGesture(sender: UITapGestureRecognizer){
+    //判断imageView的内容模式是否是UIViewContentModeScaleAspectFit,该模式是原比例，按照图片原时比例显示大小 
+    if im.contentMode == UIViewContentMode.ScaleAspectFit{
+        //把imageView模式改成UIViewContentModeCenter，按照图片原先的大小显示中心的一部分在imageView
+       im.contentMode = UIViewContentMode.Center
+    }else{
+        im.contentMode = UIViewContentMode.ScaleAspectFit
+    }
+}
+
+//捏的手势，使图片放大和缩小，捏的动作是一个连续的动作
+func handlePinchGesture(sender: UIPinchGestureRecognizer){
+    var factor = sender.scale
+    if factor &gt; 1{
+        //图片放大
+        im.transform = CGAffineTransformMakeScale(lastScaleFactor+factor-1, lastScaleFactor+factor-1)
+    }else{
+        //缩小
+        im.transform = CGAffineTransformMakeScale(lastScaleFactor*factor, lastScaleFactor*factor)
+    }
+    //状态是否结束，如果结束保存数据
+    if sender.state == UIGestureRecognizerState.Ended{
+        if factor &gt; 1{
+            lastScaleFactor = lastScaleFactor + factor - 1
+        }else{
+            lastScaleFactor = lastScaleFactor * factor
+        }
+    }
+}
+
+//旋转手势
+func handleRotateGesture(sender: UIRotationGestureRecognizer){
+    //浮点类型，得到sender的旋转度数 
+    var rotation : CGFloat = sender.rotation
+    //旋转角度CGAffineTransformMakeRotation,改变图像角度
+    im.transform = CGAffineTransformMakeRotation(rotation+netRotation)
+    //状态结束，保存数据
+    if sender.state == UIGestureRecognizerState.Ended{
+        netRotation += rotation
+    }
+}
+//拖手势
+func handlePanGesture(sender: UIPanGestureRecognizer){
+    //得到拖的过程中的xy坐标
+    var translation : CGPoint = sender.translationInView(im)
+    //平移图片CGAffineTransformMakeTranslation
+    im.transform = CGAffineTransformMakeTranslation(netTranslation.x+translation.x, netTranslation.y+translation.y)
+    if sender.state == UIGestureRecognizerState.Ended{
+        netTranslation.x += translation.x
+        netTranslation.y += translation.y
+    }
+}
+//划动手势
+func handleSwipeGesture(sender: UISwipeGestureRecognizer){
+    //划动的方向
+    var direction = sender.direction
+    //判断是上下左右
+    switch (direction){
+    case UISwipeGestureRecognizerDirection.Left:
+        println(&quot;Left&quot;)
+        imageIndex++;//下标++
+        break
+    case UISwipeGestureRecognizerDirection.Right:
+        println(&quot;Right&quot;)
+        imageIndex--;//下标--
+        break
+    case UISwipeGestureRecognizerDirection.Up:
+        println(&quot;Up&quot;)
+        break
+    case UISwipeGestureRecognizerDirection.Down:
+        println(&quot;Down&quot;)
+        break
+    default:
+        break;
+    }
+    //得到不越界不&lt;0的下标
+    imageIndex = imageIndex &lt; 0 ? images.count-1:imageIndex%images.count
+    //imageView显示图片
+    im.image = UIImage(named: images[imageIndex] as String)
+}
+
+//长按手势
+func handleLongpressGesture(sender : UILongPressGestureRecognizer){
+
+    if sender.state == UIGestureRecognizerState.Began{
+        //创建警告
+        var actionSheet = UIActionSheet(title: &quot;Image options&quot;, delegate: self, cancelButtonTitle: &quot;cancel&quot;, destructiveButtonTitle: &quot;ok&quot;, otherButtonTitles: &quot;other&quot;)
+        actionSheet.showInView(self.view)
+    }
+}
+}
+</code></pre>
+
+<h2 id="toc_1">Select Image</h2>
+
+<p>detail:imageview设置aspect fill属性后，图像可能会“撑破”图像视图，显得很宽很大，选中clip subviews属性就没事了</p>
+
+<pre><code>// MARK: select Image
+
+@IBAction func selectImage(sender: UITapGestureRecognizer){
+    // Hide the keyboard.
+    contentTextField.resignFirstResponder()
+    let imagePickerController = UIImagePickerController()
+
+    let chooseAWay:UIAlertController = UIAlertController(title: &quot;Choose a way&quot;, message: &quot;&quot;, preferredStyle: UIAlertControllerStyle.ActionSheet)
+
+    // Choose from photo library
+    let photoLib = UIAlertAction(title: &quot;Choose from photo library&quot;, style: UIAlertActionStyle.Default){
+        (action: UIAlertAction!) -&gt; Void in
+
+        imagePickerController.sourceType = .PhotoLibrary
+        imagePickerController.delegate = self
+        self.presentViewController(imagePickerController, animated: true, completion: nil)
+    }
+    // Take a picture
+    let takePhoto = UIAlertAction(title: &quot;Take a picture&quot;, style: UIAlertActionStyle.Default){
+        (action: UIAlertAction!) -&gt; Void in
+
+        if self.isCameraAvailable() &amp;&amp; self.doesCameraSupportTakingPhotos(){
+            imagePickerController.sourceType = .Camera
+            imagePickerController.allowsEditing = false
+            imagePickerController.mediaTypes = [kUTTypeImage as NSString as String]
+            imagePickerController.delegate = self
+            self.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+            self.presentViewController(imagePickerController, animated: true, completion: nil)
+        }else{
+            print(&quot;Camera is not available&quot;)
+            let CameraIsnotAva = UIAlertController(title: &quot;Check your camera&quot;, message: &quot;Camera is not available&quot;, preferredStyle: UIAlertControllerStyle.Alert)
+
+            self.presentViewController(CameraIsnotAva, animated: true, completion: nil)
+
+        }
+    }
+    let cancel = UIAlertAction(title: &quot;Cancel&quot;, style: UIAlertActionStyle.Destructive, handler: nil)
+    chooseAWay.addAction(takePhoto)
+    chooseAWay.addAction(photoLib)
+    chooseAWay.addAction(cancel)
+
+    self.presentViewController(chooseAWay, animated: true, completion: nil)
+
+
+}
+// MARK: Check camera
+func isCameraAvailable() -&gt; Bool{
+    return UIImagePickerController.isSourceTypeAvailable(.Camera)
+}
+func cameraSupportsMedia(mediaType: String,
+        sourceType: UIImagePickerControllerSourceType) -&gt; Bool{
+        let availableMediaTypes = UIImagePickerController.availableMediaTypesForSourceType(sourceType)!
+        as [String]
+        for type in availableMediaTypes{ if type == mediaType{
+        return true }
+        }
+        return false }
+func doesCameraSupportShootingVideos() -&gt; Bool{
+        return cameraSupportsMedia(kUTTypeMovie as NSString as String, sourceType: .Camera)
+}
+func doesCameraSupportTakingPhotos() -&gt; Bool{
+        return cameraSupportsMedia(kUTTypeImage as NSString as String, sourceType: .Camera)
+}
+</code></pre>
+
+<h2 id="toc_2">循环显示节拍变化</h2>
+
+<p>如何实现呢？移动之后改变？</p>
+
+<p>添加变量，用于判断当前移动到第几块来了。讲其颜色进行改变。</p>
+
+<p>每次改变都进行重新绘制，将内部每格进行判断。</p>
+
+<pre><code>    // 内部每格
+    for i in 0..&lt;numMetre{
+        var everypath = UIBezierPath(rect: CGRect(x: columnXPoint(i), y: border, width: eryWidth, height: height))
+        // 边框颜色
+        BlockBdrColor.setStroke()
+        everypath.stroke()
+        // 填充颜色
+        BlockColor.setFill()
+        everypath.fill()
+        // 当前
+        if i == numCurrent{
+            everypath = UIBezierPath(rect: CGRect(x: columnXPoint(i), y: border, width: eryWidth, height: height))
+            BlockColorFill.setFill()
+            everypath.fill()
+        }
+    }
+</code></pre>
+
+<p>进行更新显示，是在NStimer中，因为每次变化都要更新。将metre视图对象传给playLoop，</p>
+
+<pre><code> // TODO:计算时间间隔
+  timer = NSTimer.scheduledTimerWithTimeInterval(dur, 
+  target: self, selector: &quot;play:&quot;, 
+  userInfo: metre, repeats: true)
+</code></pre>
+
+<p>因为要对其进行改变，再将其传给下一个函数play。不断循环就是，判断达到是否达到总数，达到就又恢复为0。</p>
+
+<pre><code>    // 传过来啦~~可是这样好麻烦，倒转了两次
+    let metre = timer.userInfo as! MetreView
+    print(&quot;numCurrent:\(metre.numCurrent)&quot;)
+    print(&quot;Metre Num:\(metre.numMetre-1)&quot;)
+    // 循环
+    if metre.numCurrent &gt;= metre.numMetre-1 {
+        metre.numCurrent = 0
+    }else{
+        metre.numCurrent++
+    }
+    metre.setNeedsDisplay()
+</code></pre>
+
+<p>修改之前需要调用play的地方。</p>
+
+<h2 id="toc_3">AVAudio</h2>
+
+<h3 id="toc_4">when to use what</h3>
+
+<p>探索框架，寻找使用什么去实现。</p>
+
+<h3 id="toc_5">AVAudioPlayer</h3>
+
+<ol>
+<li>添加框架，import AVFoundation</li>
+<li>var player:AVAudioPlayer?</li>
+<li>let audioPath = NSString(string: NSBundle.mainBundle().pathForResource(&ldquo;strong&rdquo;, ofType: &ldquo;wav&rdquo;)!)</li>
+<li><p>play</p>
+
+<pre><code>do{
+// TODO:播放
+    player = try AVAudioPlayer(contentsOfURL: NSURL(string: audioPath as String)!)
+    player!.play()
+}catch{
+    print(&quot;Something goes wrong!&quot;)
+}     
+</code></pre></li>
+</ol>
+
+<p>Attempting to load the view of a view controller while it is deallocating is not allowed and may result in undefined behavior</p>
+
+<h2 id="toc_6">最后要呈现出视图控制器，否则报错</h2>
+
+<pre><code>error:Attempting to load the view of a view controller while it is deallocating is not allowed and may result in undefined behavior  
+        self.presentViewController(alertcontroller, animated: true, completion: nil)  
+
+
+let noFace:UIAlertController = UIAlertController(title: &quot;WOW&quot;, message: &quot;I can&#39;t see you clearly, Could you show me another face?&quot;, preferredStyle: UIAlertControllerStyle.Alert)
+            let okAction = UIAlertAction(title: &quot;OK&quot;, style: UIAlertActionStyle.Default, handler: nil)
+            noFace.addAction(okAction)
+            self.presentViewController(noFace, animated: true, completion: nil)
+</code></pre>
+
+
+</div>
+
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="14602167511880.html"  title="Previous Post: TimeLine">&laquo; TimeLine</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="14602167511150.html" 
+	        title="Next Post: Design">Design &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '14602167511282.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
+</div></div>
+
+
+<div class="page-bottom">
+  <div class="row">
+  <hr />
+  <div class="small-9 columns">
+  <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+  <div class="small-3 columns">
+  <p class="copyright text-right"><a href="#header">TOP</a></p>
+  </div>
+   
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+    
+    
+    <script src="asset/js/foundation.min.js"></script>
+    <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+    <script>
+      $(document).foundation();
+
+     
+    </script>
+    
+
+
+  </body>
+</html>
