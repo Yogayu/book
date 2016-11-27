@@ -1,6 +1,5 @@
-# Gold Room 黄金屋
 
-Books that I have read.
+# [Some of the Books that I have read](http://azureyu.com/book).
 
 
 
