@@ -1,0 +1,982 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>
+    
+  笔记 - 书摘
+  
+
+  </title>
+  <meta name="author" content="">
+  <meta name="description" content="Reading makes a full man.">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link href="asset/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="atom.xml" rel="alternate" title="书摘" type="application/atom+xml">
+  <script src="asset/js/modernizr-2.0.js"></script>
+  <script src="asset/js/jquery.min.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/solarized_light.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <style type="text/css">
+  .cat-children-p{ padding: 6px 0px;}
+  .hljs{background: none;}
+  </style>
+  <script type="text/javascript">
+  var isAddSildbar = true;
+  </script>
+  <script src="asset/js/octopress.js" type="text/javascript"></script>
+</head>
+<script type="text/javascript">
+//链接新开窗口
+function addBlankTargetForLinks () {
+  $('a[href^="http"]').each(function(){
+      $(this).attr('target', '_blank');
+  });
+}
+$(document).ready(function(event) {
+  addBlankTargetForLinks();
+});
+</script>
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="index.html">书摘</a></h1>
+  
+    <h2>Reading makes a full man.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:azureyu.com/book" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+
+  <li id=""><a target="_self" href="index.html">Home</a></li>
+
+  <li id=""><a target="_self" href="archives.html">Archives</a></li>
+
+  <li id=""><a target="_self" href="category.html">category</a></li>
+
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content"> 
+<div class="blog-index">
+
+	<article>
+		 <header>
+		  	<h1 class="entry-title"><a href="14602167513069.html">iOS 8 Programming Fundamental with Swift [Note]</a></h1>
+			<p class="meta"><time datetime="2016-04-09T23:45:51+08:00" 
+			pubdate data-updated="true">2016/4/9</time></p>
+		 </header>
+	  	<div class="entry-content">
+		  	
+		  	<p>[TOC]</p>
+
+<h1>Part 2 IDE</h1>
+
+<h1>Chapter 6. Anatomy of an Xcode Project</h1>
+
+<h2>从项目到可运行的App</h2>
+
+<p>App文件其实就是一个特殊的叫作<em>package</em>的文件夹。<br/>
+假设应用名为Empty Window<br/>
+<img src="/img/package.png" alt="package"/></p>
+
+<p>Empty window: 编译的文件。<br/>
+Main.Storyboard:Storyboard 文件，a bundle of nibs files.按需加载。<br/>
+Info.list : 配置文件。<br/>
+Frameworks: 需添加的框架。<br/>
+PkgInfo: 历史遗留物。</p>
+
+<h2>Build Settings</h2>
+
+<p>属性列表文件就是一系列的键对值。</p>
+
+<ul>
+<li>修改Info.plist文件 Editor-&gt;Show raw values.</li>
+</ul>
+
+<h2>Nib Files</h2>
+
+<p>一个Nib文件是一部分用户界面描述，它以已编译的格式包含在一个以<em>.nib结尾</em>的文件里。</p>
+
+<p>它是在编译过程中由<code>.xib</code>文件生成的,相应的，包含多个nib文件的<code>.storyboardc</code>由<br/>
+<code>.storyboard</code>文件生成。</p>
+
+<h2>Code File and App Launch Process</h2>
+
+<h3>The entry point</h3>
+
+<p>写过C语言的都知道，程序进入开始执行的地方是main函数。同样的在Objective-C中也是。</p>
+
+<pre><code>int main(int argh, char *argv[]) {
+        @autoreleasepool {
+            return UIApplicationMain(argh, argue, nil,
+                NSStringFromClass([AppDelegate class]));
+} } 
+</code></pre>
+
+<p>做了两件事情:</p>
+
+<ul>
+<li>设置了内存管理环境</li>
+<li>调用了UIApplicationMain函数</li>
+</ul>
+
+<p>但在swift中你找不到main函数：</p>
+
+<pre><code>@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {...}
+</code></pre>
+
+<p>上面的@UIApplicationMain属性，就实现了main函数的功能。你也可以自定义，新建main.swift(必须以main命名)，在其中写：</p>
+
+<pre><code>import UIKit
+UIApplicationMain(
+    Process.argc, Process.unsafeArgv, nil, NSStringFromClass(AppDelegate))
+</code></pre>
+
+<h3>UIApplicationMain</h3>
+
+<p>其实你的App不过就是对单个巨大的UIApplictionMain函数的调用。（想一想C语言中main函数的调用执行）</p>
+
+<p>UIApplicationMain主要做的事：</p>
+
+<ol>
+<li>创建你app的第一个实例——共享应用实例(the shared application instance)。之后，你可以很容易的通过调用UIApplication.sharedApplication()得到该实例。UIApplicationMain调用的第三个参数，指定了应该实例化哪一个共享应用实例。默认是nil，如果你想使用一个自己写的子类，就可以改为NSStringFromClass(MyUIApplicationSubclass)（MyUIApplicationSubclass是你自己的子类名）。</li>
+<li>创建你的第二个实例—— 应用实例的代理(delegate)。同理，它对应第四个参数。</li>
+<li>如果Info.list指定了一个主故事板文件(main storyboard file)，UIApplicationMain就会加载并查找它的初始视图控制器(initial view controller)。UIApplicationMain会实例化该视图控制器。</li>
+<li>如果有一个主故事板文件，UIApplicationMain就会开始创建窗口(<code>Window</code>)。它是你app的第四个实例，是UIWindows的实例。赋给应用代理的window属性，初始化视图控制器赋给窗口实例（window instance）的rootViewController属性。</li>
+<li>UIApplicationMain转向app delegate instance并开始调用其中的代码。终于，你可以在其中写自己的代码了。但是，最好只做一些<strong>不费时</strong>的初始化工作，因为这个时候应用的界面还没有显示。</li>
+<li>如果有一个主故事板，UIApplicationMain现在回让它显示出来了。它通过调用UIWindow实例中的<code>makeKeyandVisible</code>方法来实现。</li>
+<li>现在窗口马上就会显示了。</li>
+</ol>
+
+<p>如果没有指定一个主故事板，你也可以自己写：</p>
+
+<pre><code>    class AppDelegate: UIResponder, UIApplicationDelegate {
+        var window: UIWindow?
+
+        // look, ma, no storyboard!
+        fun application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool {
+            self.window = UIWindow()
+            self.window!.backgroundColor = UIColor.whiteColor()
+            self.window!.rootViewController =
+                MyViewController(nibName:&quot;MyViewController&quot;, bundle:nil)
+            self.window!.makeKeyAndVisible()
+            return true
+        }
+    }
+</code></pre>
+
+<p><code>framework</code>:已编译的代码库。<br/>
+对设备系统framework子集的复制叫做<code>SDK</code>(software development kit)。</p>
+
+<p>链接(<code>Linking</code>)是将你的已编译代码与所需框架挂钩的过程。</p>
+
+<p>Swift使用Modules。Modules会自动编译。<br/>
+Modules是缓存信息，存放在Library/Developer/Xcode/DrivedData/ModulesCache.它精巧而方便，但也有缺点，你无法确切的指定自己使用了哪些框架。响应的头文件也不会在导航中显示。</p>
+
+<p>有些情况下你也需要手动添加框架：<br/>
+<img src="/img/linking.png" alt="linking"/></p>
+
+<hr/>
+
+<h2>Cocoa</h2>
+
+<p>在进行iOS编程时，多数情况下是在与Cocoa进行交互。<br/>
+Cocoa是一个很庞大的库，它分为了几个小库。</p>
+
+<h2>Subclassing</h2>
+
+<p>Cocoa会提供给你一些可以直接使用的对象，比如UIButton。有时候，你会想要自定义这些对象。在对其继承之前，最好查一查，可不可以直接进行更改。比如UIButton就可以更改其标题，背景图片等。</p>
+
+<p>但是，不管怎样，你都有更改属性和方法还是不能满足的时候。这种时候，Cocoa会提供给你一些方法可以进行子类化(subclassing)和重载。</p>
+
+<p>比如UIView，你继承UIView之后，可以对drawRect进行重载，绘制自定义视图。</p>
+
+<p>但是，继承是你在和cocoa交互时，极少会使用到的方式。知道什么时候使用继承是需要技巧的，但是更通用的规则是，如果不是确切的知道该继承，你最好不要使用它。</p>
+
+<p>不使用继承的一个重要原因是，大多数自带的Cocoa类使用委托(delegation)来自定义行为(方法)。</p>
+
+<p>(纯粹看理论会没有实际认知，需要编码去理解。<br/>
+知识编码却会陷入似懂非懂的状态，需要整合理论去理解。)</p>
+
+<h2>Categories and Extensions</h2>
+
+<p>OC中Categories指直接在已存在的类上添加方法，Swift中叫作Extensions。</p>
+
+<h3>Swift中如何使用extension？</h3>
+
+<p>例子，Array<T>，多使用extension加少量的protocol。多个extension，把函数体分为多个部分不不是全部在一起，这样使得代码更容易被理解，同时相关联的函数也聚集在一起。<br/>
+eg. Core Graphic</p>
+
+<h3>你如何使用extension？</h3>
+
+<p>在已存在的对象类型中添加函数。<br/>
+而且它使用于Swift三种类型对象，比如enum和struct不能继承却可以extension。<br/>
+一次改变，处处改变。</p>
+
+<p>会在不同的头文件中都有categories的声明，但文档之间没有链接，这也许是cocoa框架结构的问题之一吧。</p>
+
+<h2>Document</h2>
+
+<ul>
+<li>Inherits from 继承自何处，不断的向上查看父类，以寻找到你需要的信息。</li>
+<li>Conforms to 这怎么翻译，不断的查看其实现的协议(Protocal),以寻找到你需要的信息。</li>
+<li>Framework  看该类属于哪个框架，在使用时，需要将框架import你的代码中。</li>
+<li>Availability   在什么版本开始可以使用。</li>
+<li>Declared in  类被声明在哪一个头文件中。</li>
+<li>Related document 相关文档，提高给你有用的信息，比如代码示例。orient your thinking and provide you optionals</li>
+<li>Sample code 下一章具体介绍</li>
+<li>Body</li>
+</ul>
+
+
+		</div>
+
+		
+
+	</article>
+ 
+	<article>
+		 <header>
+		  	<h1 class="entry-title"><a href="14644429132983.html">死亡诗社 [Note]</a></h1>
+			<p class="meta"><time datetime="2016-05-28T21:41:53+08:00" 
+			pubdate data-updated="true">2016/5/28</time></p>
+		 </header>
+	  	<div class="entry-content">
+		  	
+		  	<p>电影</p>
+
+<blockquote>
+<p>Size The Day </p>
+</blockquote>
+
+<p>故事的核心人物之一，是老师，点亮男孩们内心热情、内心渴望的老师。<br/>
+第一堂课告诉他们，你们未来终将化为尘土，看看前人的照片，想想现在的自己。及时行乐，size the day，size the day。<br/>
+开始觉得有点享乐主义，想做什么就去做吧，人生短暂。何不解放天性，获得自由。</p>
+
+<p>这对于不得不听从父母安排未来，在纪律极其严明的“hell”学校中的男孩们，不就像是在黑暗中行走的人，看到了一点火光，忍不住会跑过去吗？</p>
+
+<p>讲诗的第一堂课，就让他们撕去教科书。在你正受到各种学业的烦恼，厌倦教科书的时候。突然有人告诉你说，教科书不一定是对的，我要教你们独立思考。</p>
+
+<p>说实在的，男孩们很快的就被老师带动了，这是他们独立思考的结果吗？还是只是欲望使然。不过如此富有激情和浪漫的老师，又怎么不会被点燃呢？</p>
+
+<p>之后成立社团，一系列追随我心，size the day的“疯狂”行为。<br/>
+勇敢的去报名演戏曲，背着父亲，不顾反对的坚持。<br/>
+追求自己喜欢的女孩，虽然她已经有男朋友还在女子学校中，写诗送花。<br/>
+在学校周刊中，偷加文章，关于招收女子的言论。公然与校长作对，送上来自上帝的电话。<br/>
+无不充满着浪漫主义情怀。</p>
+
+<p>老师站在讲座上，教什么是换一个角度看问题。<br/>
+让每个人写自己的诗，并大声读出来。以独特的方式激发学生的灵感。<br/>
+让学生跟着节奏走，三人步伐一致之后，再告诉他们，你有自己本身的独特走路的姿势。<br/>
+运动踢球前，让每个人在音乐声中大声的念一句激励自己的话。相信自己。<br/>
+这一系类的片段，都在勾起对独特和自由的渴望。<br/>
+我想这也是美国精神之一吧，自由、独立、民主。</p>
+
+<p>在看时，也会思考，他们真的想清楚了吗？及时行乐不代表失去理智。也不可全由理智主宰。规定的条条框框，为什么一定要遵守呢？</p>
+
+<p>如果故事只有前三分之二，那么它绝不会打动我。<br/>
+在被父亲逼到绝境时，男主人说出nothing后，他时如此绝望，以致于最终自杀。<br/>
+男孩们在雪地时，nade说的话。“不会的，他不会离开我们的。是他的父亲，是他的父亲害死他得，是他的家庭害死他的。”旁人都在说不是的不是的。<br/>
+难道不是吗？父母亲一再对他说，在他身上寄予厚望，费力多少心思，希望他进哈佛、当医生，从没听过他的心声。</p>
+
+<p>最终，在现实、校方、家长的压迫下，他们选择了让老师去承担责任。</p>
+
+<p>毕竟都还是孩子啊，不是吗？</p>
+
+
+		</div>
+
+		
+
+	</article>
+ 
+	<article>
+		 <header>
+		  	<h1 class="entry-title"><a href="14644436170818.html">无声告白 [Note]</a></h1>
+			<p class="meta"><time datetime="2016-05-28T21:53:37+08:00" 
+			pubdate data-updated="true">2016/5/28</time></p>
+		 </header>
+	  	<div class="entry-content">
+		  	
+		  	<blockquote>
+<p>我们终此一生，就是要摆脱他人的期待，找到真正的自己。</p>
+</blockquote>
+
+<p>无声告白 是美籍华人写的，华人在美国，父母对儿女的期盼，这在中国，是极为寻常的事。寻常到我们都感觉不到这种期待的变形。在期待之下，孩子变得不想自己，不知道自己要做什么，凡是按照母亲的意愿。</p>
+
+<p>为什么会这样？这悲剧的原因在哪里？ <br/>
+她期望的是母亲的爱，而不是对科学的喜爱。 <br/>
+她不想拥有友情吗？但，为了母亲的爱，她不能。 </p>
+
+<p>她成为了家的中心。 </p>
+
+<p>哥哥和妹妹都被忽视。就算哥哥已经考上了哈佛，父母还是对她期待。医生医生，你要成为的是医生。 </p>
+
+<p>一句话故事梗概，在父母从小的期待下，儿女变得只会顺从他们的要求，一切都变得糟糕，最终自杀。 </p>
+
+<p>在父母的高度期待下，女儿成为父母梦想的代替品，迷失自己，最终自杀。</p>
+
+<hr/>
+
+<p>小说的成功之处？ <br/>
+结构，倒叙、插叙。 <br/>
+人物塑造，每个人物为什么会这样，我们都能理解。好像是本能驱使。 <br/>
+文笔，这个不好说，我看的中文翻译。 </p>
+
+<hr/>
+
+<p>为什么打动我？ </p>
+
+<p>和中国教育多么相似，读书时，父母期盼你成绩好，受人欢迎。她们把自己没能做到的事寄托在你身上。 <br/>
+做医生，要有好人缘。 典型的中式家庭。但是，她们是结合混血，还存在着矛盾，种族矛盾、性别歧视。父亲是华人，母亲是美国人。女科学家而不是家庭主妇。 </p>
+
+<p>母亲，年轻时的理想是当医生，努力向上，直到遇见父亲，丢下学业，不顾家人的反对，与另一种族（华人）结婚，虽然他从小在美国长大。成为了称职的家庭主妇，而但她的母亲去世。她觉悟到自己母亲的一生是多么渺小，唯一留下的痕迹竟是那本烹饪书。下定决心，自己不要过这样的一生。离家出走，继续学业。几个月后，却因为怀孕而不得不回到家中，放弃理想。却意外发现自己的女儿很爱科学（其实是爱她），而不再做家庭主妇，成为女儿学业辅导。把希望寄托在女儿那。 </p>
+
+<p>父亲，冒名顶替，移民到美国，父母为他未来付出一切。父母是工人阶级。从小就不希望别人知道自己父母是做什么的。从小就和身边的人不一样。不善交际，内心害怕。却渴望朋友。成绩好，哈佛毕业。但是却依旧没能拿到哈佛教授职位，到另一所大学教历史。年复一年，而学生们都不在乎这课。但和母亲相遇时，他觉得这就是奇迹，他那么爱她。想到以前自己母亲的辛苦，发誓绝不让自己的另一半也如此。成为教授，送女儿交际书，美丽的裙子。却也和自己的助教厮混。 </p>
+
+<p>哥哥，得不到父母的关心。从小爱天文。而小时候父亲为此踢坏了电视机。自己暗自努力，考入哈佛。也因为妹妹是家人中心，而嫉妒。小时候把妹妹推向湖中，又救了回来。是妹妹唯一的精神支柱，或者说溺水时能抓住依靠的人。他真实的了解家中的状态。讨厌杰克。 </p>
+
+<p>莉，主人公。因为小时候母亲的出走，许下愿望如果母亲回家她就任何事都听母亲的。于是成为家庭期待目光的中心。开始还好，一切都能应对，可是学业越来越难，母亲要求极高。她没有时间去交朋友，从幼儿园开始就是如此。后来只能靠着死记硬背骗母亲，靠作弊取得优秀。会因为一次的不及格被母亲说很久。没有朋友，却装作有朋友，因为这样她父亲会很开心。后来发现父亲和其他女人有在一起而感到心碎。更看清这个遥遥欲坠的家庭状态。唯一成为朋友的是杰克，杰克和很多女生鬼混，和她在一起时却很正经。一起聊天出去玩。但她想和杰克做爱时，杰克才说出自己喜欢的是他哥哥。她才反应过来，以前的各种线索。而同时，他不希望哥哥去哈佛，希望哥哥留下来，他哥哥也开始对他有些冷淡，忙着去大学，忙着离开这个家。她的希望，在杰克说出口，在哥哥即将离开那时，全都破碎了。她可曾为自己而活？到底是哪里出了错，她去湖边，坐上小船。想明白了这一切，她明天一一的告诉所有人，告诉他们。最后，走进了湖中，她办不到，没能抵达湖岸。没能说出口。 </p>
+
+<p>杰克，妹妹。不一一。 </p>
+
+<p>离开之后，痕迹是什么？ 记得她的恐怕只有家人。 <br/>
+可是那重要吗？为了未来，而不知道如何过好现在，不会与身边人相处。就像小说中，最后家庭和睦，他们学会了沟通，他们还有好多好多要说的话。 </p>
+
+
+		</div>
+
+		
+
+	</article>
+ 
+	<article>
+		 <header>
+		  	<h1 class="entry-title"><a href="14607334451880.html">Word Power Made Easy [Note]</a></h1>
+			<p class="meta"><time datetime="2016-04-15T23:17:25+08:00" 
+			pubdate data-updated="true">2016/4/15</time></p>
+		 </header>
+	  	<div class="entry-content">
+		  	
+		  	<p>不是用中文去注解英语，而是用英文去注解英语。所以语汇之间是有联系的，有联系更利于应用。 <br/>
+这是一本实用的书，目的在于增加你的对词汇量，以此来提高你的表达、理解等等。 <br/>
+提高词汇不是去死记硬背，而是学习新知识。词汇是表达他们的符号。&quot;powerful urge to learn. &quot;<br/>
+开始给出调查和数据。分析小孩，成年人，大学生词汇量的差异，词汇量对成功的影响。总之，就是对比之后，让你想要提高词汇量。不然你干嘛继续看下去呢？ <br/>
+然后开始给出方法，三周时间即见效果，一周一个疗程啊～ </p>
+
+<hr/>
+
+<p>That the average adult vocabulary is 50,000 words—one-fourth the size of the vocabulary of a college sophomore, only one-and-one-half times as large as the vocabulary of a ten-year-old. <br/>
+Norman Lewis, Word Power Made Easy - The Complete Three-Week Vocabulary Builder, loc. 123-125 </p>
+
+<p>The final answer seems to be that words are the instruments by means of which men and women grasp the thoughts of others and with which they do much of their own thinking. They are the tools of thought.” <br/>
+Norman Lewis, Word Power Made Easy - The Complete Three-Week Vocabulary Builder, loc. 223-224 </p>
+
+<p>immediately—and within a few days you can be cruising along at such a rapid rate that there will be an actual change in your thinking, in your ability to express your thoughts, and in your powers of understanding. <br/>
+Norman Lewis, Word Power Made Easy - The Complete Three-Week Vocabulary Builder, loc. 240-242 </p>
+
+<p>there will be an actual change in your thinking, in your ability to express your thoughts, and in your powers of understanding. <br/>
+Norman Lewis, Word Power Made Easy - The Complete Three-Week Vocabulary Builder, loc. 241-242 </p>
+
+<p>What it means—what it can only mean—is becoming acquainted with the multitudinous and fascinating phenomena of human existence for which words are, obviously, only the <br/>
+Norman Lewis, Word Power Made Easy - The Complete Three-Week Vocabulary Builder, loc. 254-255 </p>
+
+<p>What it means—what it can only mean—is becoming acquainted with the multitudinous and fascinating phenomena of human existence for which words are, obviously, only the verbal descriptions. <br/>
+Norman Lewis, Word Power Made Easy - The Complete Three-Week Vocabulary Builder, loc. 254-255 </p>
+
+<p>Will have a discernible effect on your methods of thinking—on your store of information—on your ability to express your ideas—on your understanding of human problems. <br/>
+Norman Lewis, Word Power Made Easy - The Complete Three-Week Vocabulary Builder, loc. 258-259 </p>
+
+<p>considerably less self-conscious method. Your method was the essence of simplicity: day in and day out you kept learning; you kept squeezing every possible ounce of learning out of every waking moment; you were an eternal question box, for you had a constant and insatiable desire to know and understand. <br/>
+Norman Lewis, Word Power Made Easy - The Complete Three-Week Vocabulary Builder, loc. 275-278 </p>
+
+<p>Your method was the essence of simplicity: day in and day out you kept learning; you kept squeezing every possible ounce of learning out of every waking moment; you were an eternal question box, for you had a constant and insatiable desire to know and understand. <br/>
+Norman Lewis, Word Power Made Easy - The Complete Three-Week Vocabulary Builder, loc. 276-278 </p>
+
+<p>The person who can recapture “the powerful urge to learn” with which he was born can go on increasing his vocabulary at a prodigious rate— No matter what his present age. <br/>
+Norman Lewis, Word Power Made Easy - The Complete Three-Week Vocabulary Builder, loc. 298-300 </p>
+
+<p>Notes: 1) powerful</p>
+
+<p>Not the urge to learn “words”—words are only symbols of ideas. But the urge to learn facts, theories, concepts, information, knowledge, understanding—call it what you will. <br/>
+Norman Lewis, Word Power Made Easy - The Complete Three-Week Vocabulary Builder, loc. 325-326 </p>
+
+<p>Words are the symbols of knowledge, the keys to accurate thinking. <br/>
+Norman Lewis, Word Power Made Easy - The Complete Three-Week Vocabulary Builder, loc. 327-327 </p>
+
+<p>get you started building your vocabulary at a comparatively prodigious rate by helping you regain the intellectual atmosphere, the keen, insatiable, curiosity, the “powerful urge to learn” of your childhood. <br/>
+Norman Lewis, Word Power Made Easy - The Complete Three-Week Vocabulary Builder, loc. 335-337 </p>
+
+<p>The organization of the book is based on two simple principles: 1) words are the verbal symbols of ideas, and 2) the more ideas someone is familiar with, the more words he knows. <br/>
+Norman Lewis, Word Power Made Easy - The Complete Three-Week Vocabulary Builder, loc. 337-338 </p>
+
+
+		</div>
+
+		
+
+	</article>
+ 
+	<article>
+		 <header>
+		  	<h1 class="entry-title"><a href="14602161817928.html">演讲的艺术 [Note]</a></h1>
+			<p class="meta"><time datetime="2016-04-09T23:36:21+08:00" 
+			pubdate data-updated="true">2016/4/9</time></p>
+		 </header>
+	  	<div class="entry-content">
+		  	
+		  	<p>[TOC]</p>
+
+<p>生理反应和心理反应，是可以不同的。<br/>
+紧张的生理反应是，肾上腺激素增加，心跳加快，双手颤抖，手心冒汗。</p>
+
+<p>积极对待，生理自然反应，使你更活跃。</p>
+
+<h3>试错</h3>
+
+<p>学习的过程是不断试错的过程。学校是否也是这样的实验室？你不断试错，在其中进行“实验”？</p>
+
+<h3>准备</h3>
+
+<ul>
+<li><p>感兴趣</p>
+
+<p>你要表达的<code>内容</code>，你的<code>紧张</code>。当你关心你要表达的内容<strong>胜过</strong>你的紧张时，你会发现，最重要的事情就是让我把话说完。    </p></li>
+<li><p>积极思考</p></li>
+<li><p>形象化</p></li>
+<li><p>大多数紧张看不出来</p>
+
+<ul>
+<li>你认识的自己和别人认识的你</li>
+</ul></li>
+<li><p>别指望完美</p>
+
+<ul>
+<li>出现小问题直接忽视，照常进行</li>
+</ul>
+
+<p><em>我觉得最重要的是你表达的内容。这一点确定之后，其余的大多数问题都迎刃而解。</em>  </p></li>
+<li><p>tips:</p>
+
+<ul>
+<li>放轻松，休息好</li>
+<li>大腿肌肉：紧绷-放松，拳头：握紧-放松</li>
+<li>深呼吸</li>
+<li>用心自我介绍</li>
+<li>视野交流（眉心）</li>
+<li>注意力集中在交流</li>
+<li>视觉辅助</li>
+</ul></li>
+</ul>
+
+<h3>批判性思维</h3>
+
+<ul>
+<li>严谨的思考者：批判性思维是什么？作者从逻辑和技能来解释。<em>我认为，是从不相信出发，进行思量(weight and consider)，再独立得出结论.</em></li>
+<li>清晰和准确的思考</li>
+</ul>
+
+<h3>过程</h3>
+
+<ul>
+<li>七要素</li>
+<li><p>演讲者：</p>
+
+<ul>
+<li>准备 </li>
+<li>热情</li>
+<li><em>我认为,演讲者已经做的事，获得的标签，对多数人吸引力更大。你办得到，他们想做的事，自然会想听你讲。你本身有争议，引起他人好奇，自然也会听你讲。</em></li>
+</ul></li>
+<li><p>信息</p>
+
+<ul>
+<li>语言信息
+
+<ul>
+<li>确保想传达的信息成为实际传达出去的信息 </li>
+</ul></li>
+<li>非语言信息
+
+<ul>
+<li>不妨碍语言信息</li>
+<li><em>论颜值的重要性，你长得好看，我也比较喜欢听你讲。</em> </li>
+</ul></li>
+</ul></li>
+<li><p>听众</p>
+
+<ul>
+<li>听众的思维框架(知识、经验、目标、三观) frame of reference</li>
+<li>以听众为中心（<em>纯粹的自我表达另当别论</em>）</li>
+</ul></li>
+<li><p>渠道</p></li>
+<li><p>反馈</p>
+
+<ul>
+<li>无声的反馈，行为表现</li>
+</ul></li>
+<li><p>干扰</p>
+
+<ul>
+<li>听众注意力（<em>要放假啦，老师总会提几句闲话</em>）</li>
+</ul></li>
+<li><p>场合</p></li>
+</ul>
+
+<h3>跨文化</h3>
+
+<ul>
+<li>文化多样性 
+
+<ul>
+<li>作者用了很多事实数据，<em>观点需要事实支撑</em></li>
+<li>尊重听众民族文化，同样的尊重讲者</li>
+<li>了解不同文化习俗 </li>
+</ul></li>
+</ul>
+
+<p>书很好，没长还有小结和关键术语列表。观点给出事实支撑，道理，举出合适实例。</p>
+
+<p>还有复习题和思考题。</p>
+
+
+		</div>
+
+		
+
+	</article>
+ 
+	<article>
+		 <header>
+		  	<h1 class="entry-title"><a href="14602167511150.html">Design [Note]</a></h1>
+			<p class="meta"><time datetime="2016-04-09T23:45:51+08:00" 
+			pubdate data-updated="true">2016/4/9</time></p>
+		 </header>
+	  	<div class="entry-content">
+		  	
+		  	<p>[TOC]</p>
+
+<h1>Motion Design</h1>
+
+<p>设计靠形式来体现内容的感觉。</p>
+
+<p>层次 visual foucs</p>
+
+<ol>
+<li>Transition, Focus &amp; Delight</li>
+<li>Position, Opacity &amp; Scale
+
+<ul>
+<li>Position,</li>
+<li>Opacity，浅化，逐渐淡出人们的视野<br/></li>
+</ul></li>
+<li>Use the three properties. Break the design down.</li>
+<li>Color, Rotation &amp; 3D(perspective value -&gt;  the amount of warping)</li>
+</ol>
+
+<blockquote>
+<p>Slight rotation animations can add a really neat element of interest to an otherwise mundane piece of motion, especially when coupled with spring animation curves which will be discussed later in this guide.(?)</p>
+</blockquote>
+
+<h2>Think first</h2>
+
+<p>why you use this animation?</p>
+
+<ul>
+<li>What are the initial properties of the item?</li>
+<li>What are the final properties of the item?</li>
+<li>How long should the animation take?</li>
+<li>What&#39;s happening while this item is animating?</li>
+<li>What will happen once this item is done animating?</li>
+</ul>
+
+<h2>Code it</h2>
+
+<h3>Apple CALayer</h3>
+
+<h3>Framwork</h3>
+
+<h1>Design with animation</h1>
+
+<h2>What is animation?</h2>
+
+<h2>Why? When?</h2>
+
+<ol>
+<li>Direct people&#39;s attention. Something is changed.</li>
+<li>Where they are and where they go</li>
+<li>Connect people&#39;s behavior, fell they are in control. eg. note center
+## How do we try animals?
+When to use which animation?
+How it feels?</li>
+<li>Make prototype and get their feedback.</li>
+<li>Show</li>
+<li>Learn</li>
+</ol>
+
+<h2>Example: toast APP.</h2>
+
+<h3>Prototyping Animation.</h3>
+
+<ol>
+<li>Tool: Keynote</li>
+<li>Why? What&#39;s your goal? What do you want to tell your coustomer?
+
+<ul>
+<li>Email</li>
+<li>add your favorite toast
+### Interactive Prototype</li>
+</ul></li>
+<li>fell it at hands</li>
+<li>let people try it</li>
+<li>make changes</li>
+</ol>
+
+<p>Peoblem<br/>
+Start Change Compete</p>
+
+<blockquote>
+<p>Use animation to add character to your app or game.</p>
+</blockquote>
+
+
+		</div>
+
+		
+
+	</article>
+ 
+	<article>
+		 <header>
+		  	<h1 class="entry-title"><a href="14602161817710.html">The element [Note]</a></h1>
+			<p class="meta"><time datetime="2016-04-09T23:36:21+08:00" 
+			pubdate data-updated="true">2016/4/9</time></p>
+		 </header>
+	  	<div class="entry-content">
+		  	
+		  	<p>[TOC]</p>
+
+<h2>找到你自己的天命</h2>
+
+<p>由故事，引出当下教育的问题。</p>
+
+<p>科目的偏重。</p>
+
+<p>在中国这样的现象很普遍。</p>
+
+<p>世界是急速变化的，你现在根本就无法预测到10年之后的样子。<br/>
+技术变革，人口增长。</p>
+
+<p>为了工资而工资，当世界变化了，你又能做什么？要做什么？</p>
+
+<p>所谓禀赋，就是个人资质和个人爱好相会之处。</p>
+
+<p>天命：你此生真正想做的事情。</p>
+
+<ol>
+<li><p>因素：天赋和爱好</p>
+
+<pre><code>天赋：与生俱来对某种事的本能。拥有某种天赋的人对于这种事情究竟是什么、如何运作以及如何做好有一种超乎寻常的直觉和领悟能力。
+爱好：深深的喜爱
+</code></pre></li>
+<li><p>条件：态度和机会<br/>
+    态度：我们对自身以及所处环境的一种个人判断或看法——看问题的角度，自身定位以及感性意见。<br/>
+    机会，在实际生活中，在不同的领域，积极寻找天赋。</p></li>
+</ol>
+
+<h2>别把一切视为理所当然</h2>
+
+<h3>提出质疑：自身能力以及别人的能力，真的那么简单吗？</h3>
+
+<p>常识，例子，5官，之外还有4种，痛觉，温觉，前倾平衡感（平衡感+加速感），肌肉运动知觉（本体感受）</p>
+
+<h3>智力是什么？数学能力，语言文字运用能力？</h3>
+
+<p>看看历史本源，17，18世纪启蒙运动。</p>
+
+<p>逻辑，总会有一个起始的点，被认为是理所当然的点。</p>
+
+<p>推理和证据成为基石。</p>
+
+<p>智力是不变的吗？不是。IQ测试，只能反映某一方面的能力。</p>
+
+<p>标准化考试意味着什么？</p>
+
+<p>你有多聪明？答案是，这个问题本身就是错的。</p>
+
+<h3>你拥有哪种智力？</h3>
+
+<p>天赋，热爱和实践</p>
+
+<p>智力是多样的，想一想我们多样的灿烂文明。<br/>
+1. 智力的多样性<br/>
+2. 它有极大的活力<br/>
+3. 它是绝对独特的<br/>
+发现自身的天命，就是让你尝试以各种方式去经历这个世界，去发现你真正的长处在哪里。</p>
+
+<h2>用创造力激发生命奇迹</h2>
+
+<p>每个人都有创造力，每个领域都需要创造力。</p>
+
+<p>创造力和智力之间的紧密关系。</p>
+
+<h3>想象力创造一切</h3>
+
+<p>作者认为想象力是思考的能力吗？</p>
+
+<h3>大小真的重要吗？</h3>
+
+<h3>创造力，想象力的实践应用。</h3>
+
+<p>产生有价值的想法的过程。。好拗口</p>
+
+<p>运用某种媒介，去创作。</p>
+
+<p>找到一种能激起自身想象力的媒介（比如，文字，数学，绘画，音乐），一种你乐于与其玩耍并致力于其中的媒介。</p>
+
+<p>不同的媒介有不同的思考方式。</p>
+
+<p>创造性：在不同事物之间形成新的联系。</p>
+
+<p>创造力，运用不同的媒介，不同的思考方式，实践你的想象。</p>
+
+<h3>与时光共舞，忘我的境界</h3>
+
+<p>做不同的事，寻找灵感。</p>
+
+<p>感觉时间过得很快，自我真实和自由。</p>
+
+<p>心流体验。</p>
+
+<p>看书，看喜欢的书，比如三毛的书。<br/>
+集中精力做某件事，比如完成IBM个人赛，练习某一首吉他曲。</p>
+
+<p>自己的思维方式</p>
+
+<h3>在志趣相投的人身上找到自己</h3>
+
+<p>进入适合你的圈子</p>
+
+<h2>突破限制</h2>
+
+<h2>人生导师</h2>
+
+
+		</div>
+
+		
+
+	</article>
+  
+	<div class="pagination">
+	
+<a href="archives.html">Blog Archives</a>
+	 <a class="next" href="笔记.html">Newer &rarr;</a>  
+	    
+	</div>
+</div>
+ <aside class="sidebar"> 
+
+	<section>
+	  <h1>Categories</h1>
+	  <ul id="recent_posts">
+	  
+	      <li class="post">
+	        <a href="%E6%96%87%E7%AB%A0.html"><strong>文章&nbsp;(2)</strong></a>
+	        
+	        
+	        
+	      </li>
+	  
+	      <li class="post">
+	        <a href="prose.html"><strong>散文&nbsp;(18)</strong></a>
+	        
+	        
+	        
+	      </li>
+	  
+	      <li class="post">
+	        <a href="story.html"><strong>小说&nbsp;(12)</strong></a>
+	        
+	        
+	        
+	      </li>
+	  
+	      <li class="post">
+	        <a href="HT.html"><strong>社会科学&nbsp;(5)</strong></a>
+	        
+	        
+	        
+	      </li>
+	  
+	      <li class="post">
+	        <a href="ST.html"><strong>科学技术&nbsp;(10)</strong></a>
+	        
+	        
+	        
+	      </li>
+	  
+	      <li class="post">
+	        <a href="Argument.html"><strong>论说&nbsp;(14)</strong></a>
+	        
+	        
+	        
+	      </li>
+	  
+	      <li class="post">
+	        <a href="Useful.html"><strong>实用&nbsp;(13)</strong></a>
+	        
+	        
+	        
+	      </li>
+	  
+	      <li class="post">
+	        <a href="HUM.html"><strong>哲学&nbsp;(2)</strong></a>
+	        
+	        
+	        
+	      </li>
+	  
+	      <li class="post">
+	        <a href="%E7%AC%94%E8%AE%B0.html"><strong>笔记&nbsp;(14)</strong></a>
+	        
+	        
+	        
+	      </li>
+	  
+	      <li class="post">
+	        <a href="%E5%BD%92%E6%A1%A3.html"><strong>归档&nbsp;(1)</strong></a>
+	        
+	        
+	        
+	      </li>
+	   
+	  </ul>
+	</section>
+	<section>
+	  <h1>Recent Posts</h1>
+	  <ul id="recent_posts">
+	  
+	      
+		      <li class="post">
+		        <a href="14887861102167.html"></a>
+		      </li>
+	     
+	  
+	      
+		      <li class="post">
+		        <a href="14887858399683.html">High Performance iOS APP</a>
+		      </li>
+	     
+	  
+	      
+		      <li class="post">
+		        <a href="14885089246978.html">亲密关系</a>
+		      </li>
+	     
+	  
+	      
+		      <li class="post">
+		        <a href="14847990156077.html">车轮上的瓦尔登湖</a>
+		      </li>
+	     
+	  
+	      
+		      <li class="post">
+		        <a href="14810287448226.html">失乐园</a>
+		      </li>
+	     
+	  
+	      
+	  
+	      
+	  
+	      
+	  
+	      
+	  
+	      
+	  
+	      
+	  
+	      
+	  
+	      
+	  
+	      
+	  
+	      
+	  
+	      
+	  
+	      
+	  
+	      
+	  
+	      
+	  
+	      
+	   
+	  </ul>
+	</section>
+	
+</aside> </div></div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 -  -
+  <span class="credit">Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; Theme by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+
+  
+    
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78816000-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+    var _baId = '7e918b457095c138d6ce710350596dfc';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</body>
+</html>
