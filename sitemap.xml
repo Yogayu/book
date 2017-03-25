@@ -2,17 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
   <loc>azureyu.com/book/</loc>
-  <lastmod>2017-03-06T18:24:05+08:00</lastmod>
+  <lastmod>2017-03-25T23:53:48+08:00</lastmod>
 </url>
 
 <url>
-  <loc>azureyu.com/book/14887861102167.html</loc>
-  <lastmod>2017-03-06T15:41:50+08:00</lastmod>
-</url>
-
-<url>
-  <loc>azureyu.com/book/14887858399683.html</loc>
-  <lastmod>2017-03-06T15:37:19+08:00</lastmod>
+  <loc>azureyu.com/book/14904541265205.html</loc>
+  <lastmod>2017-03-25T23:02:06+08:00</lastmod>
 </url>
 
 <url>
@@ -438,12 +433,17 @@
 
 <url>
   <loc>azureyu.com/book/14798191875220.html</loc>
-  <lastmod>2016-12-06T20:51:43+08:00</lastmod>
+  <lastmod>2017-03-25T23:02:33+08:00</lastmod>
 </url>
 
 <url>
   <loc>azureyu.com/book/14798191972718.html</loc>
   <lastmod>2016-12-06T20:55:35+08:00</lastmod>
+</url>
+
+<url>
+  <loc>azureyu.com/book/about.html</loc>
+  <lastmod>2017-03-25T23:52:54+08:00</lastmod>
 </url>
 
 
